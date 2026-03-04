@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+
+# Environment (never commit secrets)
+.env
+.env.local
+.env.*.local
+
+# Database
+*.db
+api/prisma/dev.db
+
+# Build output
+dist/
+build/
+
+# Logs and caches
+*.log
+npm-debug.log*
+.cache/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE (optional - uncomment if you want to exclude)
+# .vscode/
+# .idea/

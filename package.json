@@ -1,0 +1,13 @@
+{
+  "name": "mirror-shop",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A shop selling different types of mirrors",
+  "scripts": {
+    "dev:api": "npm run dev --prefix api",
+    "dev:web": "npm run dev --prefix web",
+    "build:api": "npm run build --prefix api",
+    "build:web": "npm run build --prefix web",
+    "seed": "npm run seed --prefix api"
+  }
+}
