@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, type ReactNode } from "react";
-import type { Mirror, MirrorOptions } from "../types/mirror";
+import { normalizeFinishes, type Mirror, type MirrorOptions } from "../types/mirror";
 
 export interface BasketItem extends Mirror {
   lineId: string;
@@ -8,8 +8,13 @@ export interface BasketItem extends Mirror {
 }
 
 function matchOptions(a: MirrorOptions, b: MirrorOptions): boolean {
+  const normalizedA = normalizeFinishes(a.finishes);
+  const normalizedB = normalizeFinishes(b.finishes);
   return (
-    a.finish === b.finish && a.height === b.height && a.width === b.width
+    normalizedA.length === normalizedB.length &&
+    normalizedA.every((finish, index) => finish === normalizedB[index]) &&
+    a.height === b.height &&
+    a.width === b.width
   );
 }
 
@@ -27,8 +32,12 @@ export function BasketProvider({ children }: { children: ReactNode }) {
 
   const addItem = (mirror: Mirror, options: MirrorOptions, quantity = 1) => {
     setItems((prev) => {
+      const normalizedOptions: MirrorOptions = {
+        ...options,
+        finishes: normalizeFinishes(options.finishes),
+      };
       const existing = prev.find(
-        (i) => i.id === mirror.id && matchOptions(i.options, options)
+        (i) => i.id === mirror.id && matchOptions(i.options, normalizedOptions)
       );
       if (existing) {
         return prev.map((i) =>
@@ -38,7 +47,7 @@ export function BasketProvider({ children }: { children: ReactNode }) {
         );
       }
       const lineId = crypto.randomUUID();
-      return [...prev, { ...mirror, lineId, quantity, options }];
+      return [...prev, { ...mirror, lineId, quantity, options: normalizedOptions }];
     });
   };
 

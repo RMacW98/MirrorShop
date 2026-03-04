@@ -1,7 +1,14 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useBasket } from "../context/BasketContext";
-import type { Mirror, MirrorFinish, MirrorOptions } from "../types/mirror";
+import {
+  FINISH_OPTIONS,
+  FINISH_LABELS,
+  Mirror,
+  MirrorFinish,
+  MirrorOptions,
+  normalizeFinishes,
+} from "../types/mirror";
 import "./ProductPage.css";
 
 export default function ProductPage() {
@@ -11,10 +18,19 @@ export default function ProductPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [added, setAdded] = useState(false);
-  const [finish, setFinish] = useState<MirrorFinish>("polished");
+  const [finishes, setFinishes] = useState<MirrorFinish[]>([]);
   const [height, setHeight] = useState(60);
   const [width, setWidth] = useState(40);
   const [quantity, setQuantity] = useState(1);
+
+  const toggleFinish = (value: MirrorFinish) => {
+    setFinishes((prev) => {
+      const next = prev.includes(value)
+        ? prev.filter((finish) => finish !== value)
+        : [...prev, value];
+      return normalizeFinishes(next);
+    });
+  };
 
   useEffect(() => {
     if (!id) return;
@@ -31,7 +47,11 @@ export default function ProductPage() {
 
   const handleAddToBasket = () => {
     if (!mirror) return;
-    const options: MirrorOptions = { finish, height, width };
+    const options: MirrorOptions = {
+      finishes: normalizeFinishes(finishes),
+      height,
+      width,
+    };
     addItem(mirror, options, quantity);
     setAdded(true);
     setTimeout(() => setAdded(false), 1500);
@@ -66,17 +86,21 @@ export default function ProductPage() {
           <p className="product-description">{mirror.description ?? "—"}</p>
 
           <div className="product-options">
-            <label className="product-option">
+            <div className="product-option">
               <span className="product-option-label">Finish</span>
-              <select
-                value={finish}
-                onChange={(e) => setFinish(e.target.value as MirrorFinish)}
-                className="product-option-select"
-              >
-                <option value="polished">Polished</option>
-                <option value="heat-soaked">Heat soaked</option>
-              </select>
-            </label>
+              <div className="finish-checkboxes">
+                {FINISH_OPTIONS.map((option) => (
+                  <label key={option} className="finish-checkbox">
+                    <input
+                      type="checkbox"
+                      checked={finishes.includes(option)}
+                      onChange={() => toggleFinish(option)}
+                    />
+                    <span>{FINISH_LABELS[option]}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
             <div className="product-option product-option-size">
               <span className="product-option-label">Size (cm)</span>
               <div className="product-option-size-inputs">

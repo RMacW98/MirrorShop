@@ -88,6 +88,26 @@
   gap: 0.35rem;
 }
 
+.finish-checkboxes {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.finish-checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.finish-checkbox input {
+  width: 16px;
+  height: 16px;
+  accent-color: #333;
+}
+
 .product-option-label {
   font-size: 0.85rem;
   font-weight: 600;
