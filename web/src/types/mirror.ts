@@ -1,18 +1,7 @@
 export type MirrorFinish = "polished" | "heat-soaked";
 
-export const FINISH_OPTIONS: MirrorFinish[] = ["polished", "heat-soaked"];
-
-export const FINISH_LABELS: Record<MirrorFinish, string> = {
-  polished: "Polished",
-  "heat-soaked": "Heat soaked",
- };
-
-export function normalizeFinishes(finishes: MirrorFinish[]): MirrorFinish[] {
-  return FINISH_OPTIONS.filter((finish) => finishes.includes(finish));
-}
-
 export interface MirrorOptions {
-  finishes: MirrorFinish[];
+  finish: MirrorFinish;
   height: number; // cm
   width: number;  // cm
 }
