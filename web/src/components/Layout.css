@@ -27,6 +27,12 @@
   color: #666;
 }
 
+.layout-header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
 .basket-button {
   font-size: 1rem;
   padding: 0.5rem 1rem;
@@ -42,6 +48,32 @@
 .basket-button:hover {
   background: #f5f5f5;
   border-color: #999;
+}
+
+.auth-link {
+  font-size: 0.95rem;
+  color: #555;
+  text-decoration: none;
+}
+
+.auth-link:hover {
+  color: #333;
+  text-decoration: underline;
+}
+
+.auth-button {
+  font-size: 0.95rem;
+  padding: 0.4rem 0.8rem;
+  background: transparent;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #555;
+}
+
+.auth-button:hover {
+  background: #f5f5f5;
+  color: #333;
 }
 
 .layout-main {

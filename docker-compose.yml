@@ -1,0 +1,14 @@
+services:
+  mysql:
+    image: mysql:8
+    container_name: mirrorshop-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: mirrorshop
+    ports:
+      - "3307:3306"
+    volumes:
+      - mirrorshop_data:/var/lib/mysql
+
+volumes:
+  mirrorshop_data:

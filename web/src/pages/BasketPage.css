@@ -104,6 +104,111 @@
   border-color: #c33;
 }
 
+.basket-checkout {
+  max-width: 400px;
+  margin: 0 0 2rem;
+  padding: 1.5rem;
+  border: 1px solid #e8e8e8;
+  border-radius: 8px;
+  background: #fafafa;
+}
+
+.basket-checkout h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.25rem;
+}
+
+.basket-checkout-intro {
+  margin: 0 0 1.25rem;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.checkout-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 1rem;
+}
+
+.checkout-field span {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #444;
+}
+
+.checkout-field input {
+  padding: 0.6rem 0.75rem;
+  font-size: 0.95rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+.checkout-field input:focus {
+  outline: none;
+  border-color: #555;
+}
+
+.checkout-error {
+  margin: 0 0 1rem;
+  color: #c33;
+  font-size: 0.9rem;
+}
+
+.checkout-submit {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  background: #333;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.checkout-submit:hover:not(:disabled) {
+  background: #555;
+}
+
+.checkout-submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.checkout-login-prompt {
+  margin: 0 0 1rem;
+  color: #555;
+}
+
+.checkout-login-prompt a {
+  color: #333;
+  font-weight: 600;
+}
+
+.checkout-details-prompt {
+  margin: 0 0 1rem;
+  color: #555;
+  font-size: 0.9rem;
+}
+
+.checkout-details {
+  margin: 0 0 1rem;
+  padding: 1rem;
+  background: #fff;
+  border-radius: 6px;
+  border: 1px solid #e8e8e8;
+}
+
+.checkout-details p {
+  margin: 0.35rem 0;
+  font-size: 0.95rem;
+}
+
+.missing-details-form .checkout-field {
+  margin-bottom: 1rem;
+}
+
 .basket-summary {
   display: flex;
   flex-wrap: wrap;

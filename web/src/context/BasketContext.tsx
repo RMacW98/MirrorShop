@@ -17,6 +17,7 @@ interface BasketContextValue {
   items: BasketItem[];
   addItem: (mirror: Mirror, options: MirrorOptions, quantity?: number) => void;
   removeItem: (lineId: string) => void;
+  clearBasket: () => void;
   itemCount: number;
 }
 
@@ -46,10 +47,14 @@ export function BasketProvider({ children }: { children: ReactNode }) {
     setItems((prev) => prev.filter((i) => i.lineId !== lineId));
   };
 
+  const clearBasket = () => {
+    setItems([]);
+  };
+
   const itemCount = items.reduce((sum, i) => sum + i.quantity, 0);
 
   return (
-    <BasketContext.Provider value={{ items, addItem, removeItem, itemCount }}>
+    <BasketContext.Provider value={{ items, addItem, removeItem, clearBasket, itemCount }}>
       {children}
     </BasketContext.Provider>
   );

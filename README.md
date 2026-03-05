@@ -1,6 +1,6 @@
 # Mirror Shop
 
-A shop selling different types of mirrors. Full-stack TypeScript: Express API with Prisma (SQLite), plus React + Vite frontend.
+A shop selling different types of mirrors. Full-stack TypeScript: Express API with Prisma (MySQL), plus React + Vite frontend.
 
 ## Setup
 
@@ -20,11 +20,13 @@ If `web` install is blocked by a security tool (e.g. SCFW) due to esbuild adviso
 
 ### 2. Database (API)
 
+MySQL is required. The project includes Docker Compose (port 3307 to avoid conflict with local MySQL on 3306):
+
 ```bash
+docker compose up -d
 cd api
-# Ensure .env exists with: DATABASE_URL="file:./dev.db" (see .env.example)
 npx prisma generate
-npx prisma migrate dev --name init
+npx prisma migrate dev
 npm run seed
 cd ..
 ```
@@ -61,7 +63,7 @@ Visit http://localhost:5173 to see the mirror catalog.
 ## Environment
 
 **API (`api/.env`):**
-- `DATABASE_URL` – Prisma connection (default: `file:./dev.db` for SQLite)
+- `DATABASE_URL` – MySQL connection string (Docker Compose uses port 3307: `mysql://root:password@localhost:3307/mirrorshop`)
 
 **Web:**
 - `VITE_API_URL` – API base URL (optional; defaults to `/api` when using Vite proxy)
