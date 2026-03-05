@@ -1,5 +1,9 @@
 import { Router } from "express";
 import { prisma } from "../lib/prisma.js";
+import {
+  forwardOrderToAdmin,
+  sendOrderConfirmation,
+} from "../services/email.service.js";
 
 const router = Router();
 
@@ -93,6 +97,18 @@ router.post("/", async (req, res) => {
     });
 
     res.status(201).json(order);
+
+    // Fire-and-forget: send emails (don't block response)
+    const customer = {
+      name: order.customerName,
+      email: order.customerEmail,
+    };
+    sendOrderConfirmation(order, customer).catch((err) =>
+      console.error("Failed to send order confirmation:", err),
+    );
+    forwardOrderToAdmin(order, customer).catch((err) =>
+      console.error("Failed to forward order to admin:", err),
+    );
   } catch (error) {
     console.error("Failed to create order:", error);
     res.status(500).json({ error: "Failed to create order" });
