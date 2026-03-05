@@ -3,16 +3,46 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "mysql"
   url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String?
+  phoneNumber  String?
+  createdAt    DateTime @default(now())
 }
 
 model Mirror {
   id          String   @id @default(cuid())
   name        String
   type        String   // wall, floor, vanity, decorative
-  price       Float
   description String?
   imageUrl    String?
+  createdAt   DateTime @default(now())
+}
+
+model Order {
+  id            String      @id @default(cuid())
+  customerName  String
+  customerEmail String
+  customerPhone String
+  createdAt     DateTime    @default(now())
+  lines         OrderLine[]
+}
+
+model OrderLine {
+  id          String   @id @default(cuid())
+  orderId     String
+  order       Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId   String
+  productName String
+  quantity    Int
+  finish      String
+  height      Int
+  width       Int
   createdAt   DateTime @default(now())
 }

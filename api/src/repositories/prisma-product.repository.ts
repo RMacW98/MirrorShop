@@ -21,7 +21,6 @@ export class PrismaProductRepository implements ProductRepository {
     id: string;
     name: string;
     type: string;
-    price: number;
     description: string | null;
     imageUrl: string | null;
     createdAt: Date;
@@ -30,7 +29,6 @@ export class PrismaProductRepository implements ProductRepository {
       id: row.id,
       name: row.name,
       type: row.type,
-      price: row.price,
       description: row.description,
       imageUrl: row.imageUrl,
       createdAt: row.createdAt,
